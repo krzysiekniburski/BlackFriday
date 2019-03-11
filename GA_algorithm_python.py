@@ -1,7 +1,9 @@
 import random
 
 
-# test data
+'''
+    Author: Piotr Stelmach
+'''
 
 
 class Chromosome:
