@@ -1,9 +1,5 @@
 import random
-
-
-'''
-    Author: Piotr Stelmach
-'''
+from faker import Faker
 
 
 class Chromosome:
@@ -141,8 +137,20 @@ class GeneticAlgorithm:
 
 
 # test data
-test_prices = [100, 50, 200, 799, 650, 150, 185, 299, 399, 350]
-test_weights = [1, 3, 2, 2, 2, 2, 2, 2, 2, 2]
+#test_prices = [100, 50, 200, 799, 650, 150, 185, 299, 399, 350]
+#test_weights = [1, 3, 2, 2, 2, 2, 2, 2, 2, 2]
+
+# More random numbers
+fake = Faker()
+name = []
+test_prices = []
+test_weights = []
+for i in range(0, 10):
+    name.append(fake.first_name())
+    test_prices.append(random.randint(200, 500))
+    test_weights.append(random.randint(1, 15))
+
+
 
 # parameters
 POPULATION_SIZE = 10
@@ -192,3 +200,7 @@ while population.get_chromosomes()[0].get_fitness() < MAX_MASS:
     gen_number += 1
 print_best_score(population)
 
+print("Tablice name, test_prices and test_weights:")
+print("names: ",name)
+print("Prices: ",test_prices)
+print("Weights:", test_weights)
