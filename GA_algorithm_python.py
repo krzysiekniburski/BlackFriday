@@ -31,19 +31,19 @@ class Chromosome:
         return self._genes
 
     def calc_fitness(self):
-
+        self._fitness = 0
         for i in range(self._genes.__len__()):
             if self._genes[i] == 1:
                 self.total_vol += test_weights[i]
                 self.total_price += test_prices[i]
-                self._fitness += test_weights[i]
-            if self.total_vol > MAX_MASS:
-                self.total_vol -= test_weights[i]
-                self.total_price -= test_prices[i]
-                self._fitness -= test_weights[i]
+                self._fitness += test_prices[i]
 
-            if self._fitness < 0:
+            if self.total_vol > MAX_MASS:
                 self._fitness = 0
+                #self.total_vol -= test_weights[i]
+                #self.total_price -= test_prices[i]
+                #self._fitness -= test_weights[i]
+
 
     def get_fitness(self):
 
@@ -64,7 +64,7 @@ class Population:
     def __init__(self, size):
         self._chromosomes = []
         i = 0
-        while i < size:
+        while i < 200:
             self._chromosomes.append(Chromosome())
             i += 1
 
@@ -147,14 +147,15 @@ test_prices = []
 test_weights = []
 for i in range(0, 10):
     name.append(fake.first_name())
-    test_prices.append(random.randint(200, 500))
+    test_prices.append(random.randint(1, 10))
     test_weights.append(random.randint(1, 15))
 
-
+#test_prices = [21, 5, 8, 12]
+#test_weights = [7, 12, 6, 8]
 
 # parameters
 POPULATION_SIZE = 10
-MAX_MASS = 20
+MAX_MASS = 15
 population = Population(POPULATION_SIZE)
 
 
@@ -170,6 +171,8 @@ def print_population(pop, gen_num):
     i = 0
     for x in pop.get_chromosomes():
         # x.calc_fitness()
+        print(test_prices)
+        print(test_weights)
         print('Chromosome: ', i, ":", x, " Fitness ", x.get_fitness())
         print("Volume ", x.get_total_vol(), "Price", x.get_total_prices())
         i += 1
@@ -183,7 +186,6 @@ def print_best_score(pop):
     print('Total volume: ', best.get_total_vol(), "Total price: ", best.get_total_prices())
     print('----------------------------------------------------------------------------')
 
-
 calc_fitness_pop(population)
 population.get_chromosomes().sort(key=lambda x: x.get_fitness(), reverse=True)
 print_population(population, 0)
@@ -192,15 +194,17 @@ GeneticAlgorithm.evolve(population)
 population.get_chromosomes().sort(key=lambda x: x.get_fitness(), reverse=True)
 print_population(population, 1)
 
-
-while population.get_chromosomes()[0].get_fitness() < MAX_MASS:
+k =0
+#while population.get_chromosomes()[0].get_fitness() < MAX_MASS:
+for k in range(50):
     population = GeneticAlgorithm.evolve(population)
     population.get_chromosomes().sort(key=lambda x: x.get_fitness(), reverse=True)
     print_population(population, gen_number)
     gen_number += 1
+
 print_best_score(population)
 
 print("Tablice name, test_prices and test_weights:")
-print("names: ",name)
+#print("names: ",name)
 print("Prices: ",test_prices)
 print("Weights:", test_weights)
