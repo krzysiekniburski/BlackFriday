@@ -195,11 +195,11 @@ population.get_chromosomes().sort(key=lambda x: x.get_fitness(), reverse=True)
 print_population(population, 1)
 
 #while population.get_chromosomes()[0].get_fitness() < MAX_MASS:
-for k in range(50):
-    population = GeneticAlgorithm.evolve(population)
-    population.get_chromosomes().sort(key=lambda x: x.get_fitness(), reverse=True)
-    print_population(population, gen_number)
-    gen_number += 1
+#for k in range(50):
+population = GeneticAlgorithm.evolve(population)
+population.get_chromosomes().sort(key=lambda x: x.get_fitness(), reverse=True)
+print_population(population, gen_number)
+#gen_number += 1
 
 print_best_score(population)
 
