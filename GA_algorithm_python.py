@@ -1,4 +1,5 @@
 import random
+import pymysql as sql
 from faker import Faker
 
 
@@ -135,27 +136,44 @@ class GeneticAlgorithm:
         else:
             pop.get_chromosomes()[POPULATION_SIZE - 1] = off2
 
+test_names = []
+test_prices = []
+test_weights = []
+
+conn = sql.Connect(host='localhost', unix_socket='', user='root', passwd='', db='agd')
+cursor = conn.cursor()
+
+stat = 'SELECT * FROM stuff'
+
+cursor.execute(stat)
+
+lista = list(cursor.fetchall())
+
+for row in lista:
+    test_names.append(row[1])
+    test_prices.append(row[2])
+    test_weights.append(row[3])
 
 # test data
 #test_prices = [100, 50, 200, 799, 650, 150, 185, 299, 399, 350]
 #test_weights = [1, 3, 2, 2, 2, 2, 2, 2, 2, 2]
 
 # More random numbers
-fake = Faker()
-name = []
-test_prices = []
-test_weights = []
-for i in range(0, 10):
-    name.append(fake.first_name())
-    test_prices.append(random.randint(1, 10))
-    test_weights.append(random.randint(1, 15))
+# fake = Faker()
+# name = []
+# test_prices = []
+# test_weights = []
+# for i in range(0, 10):
+#     name.append(fake.first_name())
+#     test_prices.append(random.randint(1, 10))
+#     test_weights.append(random.randint(1, 15))
 
 #test_prices = [21, 5, 8, 12]
 #test_weights = [7, 12, 6, 8]
 
 # parameters
 POPULATION_SIZE = 10
-MAX_MASS = 15
+MAX_MASS = 100
 population = Population(POPULATION_SIZE)
 
 
