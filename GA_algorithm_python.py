@@ -1,6 +1,5 @@
 import random
 import pymysql as sql
-from faker import Faker
 
 
 class Chromosome:
@@ -136,6 +135,7 @@ class GeneticAlgorithm:
         else:
             pop.get_chromosomes()[POPULATION_SIZE - 1] = off2
 
+
 test_names = []
 test_prices = []
 test_weights = []
@@ -153,10 +153,6 @@ for row in lista:
     test_names.append(row[1])
     test_prices.append(row[2])
     test_weights.append(row[3])
-
-# test data
-#test_prices = [100, 50, 200, 799, 650, 150, 185, 299, 399, 350]
-#test_weights = [1, 3, 2, 2, 2, 2, 2, 2, 2, 2]
 
 # More random numbers
 # fake = Faker()
@@ -204,6 +200,7 @@ def print_best_score(pop):
     print('Total volume: ', best.get_total_vol(), "Total price: ", best.get_total_prices())
     print('----------------------------------------------------------------------------')
 
+
 calc_fitness_pop(population)
 population.get_chromosomes().sort(key=lambda x: x.get_fitness(), reverse=True)
 print_population(population, 0)
@@ -212,16 +209,17 @@ GeneticAlgorithm.evolve(population)
 population.get_chromosomes().sort(key=lambda x: x.get_fitness(), reverse=True)
 print_population(population, 1)
 
-#while population.get_chromosomes()[0].get_fitness() < MAX_MASS:
+
+while population.get_chromosomes()[0].get_fitness() != 0:
 #for k in range(50):
-population = GeneticAlgorithm.evolve(population)
-population.get_chromosomes().sort(key=lambda x: x.get_fitness(), reverse=True)
-print_population(population, gen_number)
-#gen_number += 1
+    population = GeneticAlgorithm.evolve(population)
+    population.get_chromosomes().sort(key=lambda x: x.get_fitness(), reverse=True)
+    print_population(population, gen_number)
+    gen_number += 1
 
 print_best_score(population)
 
-print("Tablice name, test_prices and test_weights:")
-#print("names: ",name)
-print("Prices: ",test_prices)
-print("Weights:", test_weights)
+# print("Tablice name, test_prices and test_weights:")
+# #print("names: ",name)
+# print("Prices: ",test_prices)
+# print("Weights:", test_weights)

@@ -1,5 +1,5 @@
 ##
-import pymysql as sql#
+import pymysql as sql
 import random
 from faker import Faker
 fake = Faker()
